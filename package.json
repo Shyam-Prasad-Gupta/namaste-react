@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "React Tutorial",
   "scripts": {
-    "devBuildStart" : "parcel index.html",
+    "devBuildStart": "parcel index.html",
     "prodBuildStart": "parcel build index.html",
     "test": "jest"
   },
@@ -21,9 +21,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.18.0"
   },
-  "browserlist":[
+  "browserlist": [
     "last 3 versions"
   ]
 }
