@@ -2,25 +2,29 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import restaurantList from "../utils/mockData";
 import Shimmer from "./Shimmer";
+import { RES_HOME_PAGE_URL } from "../utils/constants";
+import { Link } from "react-router-dom";
+import useGetNetworkStatus from "../utils/custom-hooks/useGetNetworkStatus";
 
 //let restList = restaurantList;
 const Body = () => {
+  
   const [resList, setResList] = useState([]);
+  const networkAvailable = useGetNetworkStatus();
   //setResList(restaurantList);
 
   useEffect(() => {
     console.log("Use Effect called.");
-    fetchData();
+    console.log("Network availability: " + networkAvailable);
+      fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4964301&lng=77.096291&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    console.log("Data: ", data);
+    const data = await fetch(RES_HOME_PAGE_URL);
+    //console.log("Data: ", data);
 
     const jsonData = await data.json();
-    console.log("Json Data: ", jsonData);
+    //console.log("Json Data: ", jsonData);
 
     const topRestaurants = jsonData?.data?.cards?.filter(
       (card) => card.card.card.id == "top_brands_for_you"
@@ -34,6 +38,9 @@ const Body = () => {
     setResList([]);
     return;
   };
+
+  if(networkAvailable == false)
+    return <h1>Seems you are offline. Please check your internet connection!!</h1>
 
   if (resList.length == 0) {
     //return <h3>Loading.....</h3>
@@ -78,7 +85,9 @@ const Body = () => {
       <div className="res-card-container">
         {/* <ResCardComponent resName="theobrama" avgRating="4.3" deliveryTime="45" resAddress="DLF Cyber City" cuisines="Biryani, Firmi, Fast Food"/> */}
         {resList.map((restaurant, index) => (
+          <Link to={"/restaurant/" + restaurant.info.id} className="rest-list-rest-link">
           <RestaurantCard key={restaurant.info.id} rest={restaurant} />
+          </Link>
         ))}
       </div>
     </div>

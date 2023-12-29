@@ -4,7 +4,7 @@ import CDN_URL from "../utils/constants";
 const RestaurantCard = (props) => {
     //const {resName, avgRating, deliveryTime, resAddress, cuisines} = props;
     //const {} = props.restList;
-    const {name, cuisines, avgRatingString, sla, areaName, cloudinaryImageId, cta} = props?.rest.info;
+    const {name, cuisines, avgRatingString, sla, areaName, cloudinaryImageId, cta, id} = props?.rest.info;
     
     return (
       // <div className="res-card" style={{backgroundColor: "#f0f0f0"}}>
@@ -17,14 +17,12 @@ const RestaurantCard = (props) => {
       // </div>
   
       <div className="res-card" style={{backgroundColor: "#f0f0f0"}}>
-        <a href={props?.rest.cta.link} style = {{textDecoration: "none"}}>
         <img className="res-logo" alt="res-logo" src={CDN_URL + cloudinaryImageId}/>
         <h4>{name}</h4>
         <h4>{cuisines.join(", ")}</h4>
         <h4>{avgRatingString} Stars</h4>
         <h4>{sla.deliveryTime} Mins</h4>
         <h5>{areaName}</h5>
-        </a>
       </div>
     );
   };

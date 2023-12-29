@@ -1,4 +1,4 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./src/components/Header";
 import Body from "./src/components/Body";
@@ -11,6 +11,9 @@ import Careers from "./src/components/Careers";
 //here RouterProvider will actually take the router configuration and enable the routing
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import RestaurantDetail from "./src/components/RestaurantDetail";
+//import Grocery from "./src/components/Grocery";
+
+const Grocery = lazy(() => import("./src/components/Grocery"));
 
 const AppLayout = () => {
   return (
@@ -44,8 +47,12 @@ const appRouter = createBrowserRouter([
         element: <Careers />
       },
       {
-        path: "/restaurant/:id",
+        path: "/restaurant/:resId",
         element: <RestaurantDetail />
+      },
+      {
+        path: "/grocery",
+        element: <Suspense><Grocery /></Suspense>
       }
     ],
     errorElement: <Error />
